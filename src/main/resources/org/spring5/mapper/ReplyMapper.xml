@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring5.mapper.ReplyMapper">
+
+<select id="replyList" resultType="org.spring5.domain.ReplyVO">
+	select * from travel.reply where bno = #{bno}
+</select>
+
+<insert id="replyInsert">
+	insert into travel.reply (rno, replyContent, memberId, bno)
+	values(seq_rno.nextval, #{replyContent}, #{memberId}, #{bno})
+</insert>
+
+<update id="replyModify">
+	update travel.reply
+	set replyContent = #{replyContent}, updateDate = sysdate
+	where rno = #{rno}
+</update>
+
+<delete id="replyDelete">
+	delete from travel.reply where rno=#{rno}
+</delete>
+
+
+</mapper>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring5.mapper.BoardMapper">
+
+<!-- <select id="boardGetList" resultType="org.spring5.domain.BoardVO">
+<![CDATA[
+	select * from travel.board where bno > 0
+]]>
+</select> -->
+
+
+	<!-- 오라클 11g 페이징 쿼리(14장), 검색조건 추가(15장)   -->
+	<select id="getListPaging" resultType="org.spring5.domain.BoardVO">
+	<![CDATA[
+		SELECT bno, title, content, memberId, regdate, updatedate
+		FROM (SELECT /*+ INDEX_DESC (a pk_board) */ rownum rn, a.* 
+			  FROM travel.board a
+			  WHERE rownum <= #{pageNum} * #{amount})		
+		WHERE rn >= (#{pageNum} * #{amount}) - (#{amount} - 1)
+	]]>	
+
+	</select>
+	
+	
+	<select id="getListPagingWithSearch" resultType="org.spring5.domain.BoardVO">
+	<![CDATA[
+		SELECT bno, title, content, memberId, regdate, updatedate
+		FROM (SELECT /*+ INDEX_DESC (a pk_board) */ rownum rn, a.* 
+			  FROM travel.board a
+			  WHERE 
+	]]>	
+	
+		<if test="keyword!=null and keyword!=''">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							title like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							memberId like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'TC'.toString()">
+							(bno > 0) AND ((title LIKE '%'||#{keyword}||'%') OR (content LIKE '%'||#{keyword}||'%'))
+						</when>
+						<when test="type == 'TW'.toString()">
+							(bno > 0) AND ((title LIKE '%'||#{keyword}||'%') OR (memberId LIKE '%'||#{keyword}||'%'))
+						</when>
+						<when test="type == 'CW'.toString()">
+							(bno > 0) AND ((content LIKE '%'||#{keyword}||'%') OR (memberId LIKE '%'||#{keyword}||'%'))
+						</when>
+						<when test="type == 'TCW'.toString()">
+							(bno > 0) AND ((title LIKE '%'||#{keyword}||'%') OR (content LIKE '%'||#{keyword}||'%') OR (memberId LIKE '%'||#{keyword}||'%'))
+                		</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+		</if>  
+
+	<![CDATA[
+		rownum <= #{pageNum} * #{amount}
+		)
+		
+		WHERE rn >= (#{pageNum} * #{amount}) - (#{amount} - 1)
+	]]>
+	</select>
+	
+	
+	
+	<select id="getTotalCount" resultType="int">
+		SELECT count(bno) FROM travel.board
+		<if test="keyword!=null and keyword!=''">
+		<where>
+		<trim prefix="(" suffix=") " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							title like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							memberId like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+		</where>
+		</if>  
+	<!-- 개선되어서 count에 *를 적어도 기본키 숫자를 센다. 그래도 위에처럼 bno(기본키값)을 넣어줘라 -->
+	</select>
+
+
+<insert id="boardInsert">
+	insert into travel.board (bno, title, content, memberId)
+	values (seq_bno.nextval, #{title}, #{content}, #{memberId})
+</insert>
+
+<select id="boardRead" resultType="org.spring5.domain.BoardVO">
+	select * from travel.board where bno = #{bno}
+</select>
+
+<delete id="boardDelete">
+	delete from travel.board where bno = #{bno}
+</delete>
+
+<update id="boardUpdate">
+	update travel.board
+	set title = #{title}, content = #{content}, updateDate = sysdate
+	where bno = #{bno}
+</update>
+</mapper>

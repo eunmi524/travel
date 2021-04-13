@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring5.mapper.MemberMapper">
+
+<insert id="memberInsert">
+	insert into travel.member (memberId, memberPw, memberName, memberEmail, memberPhoneNumber)
+	values (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberPhoneNumber})
+</insert>
+
+<select id="memberList" resultType="org.spring5.domain.MemberVO">
+	select * from travel.member 
+</select>
+
+<select id="login" resultType="org.spring5.domain.MemberVO">
+	select memberId 
+	from travel.member
+	where memberId =#{memberId} and memberPw = #{memberPw}
+</select>
+
+<select id="memberRead" resultType="org.spring5.domain.MemberVO">
+	select * from travel.member
+	where memberId=#{memberId}
+</select>
+
+<update id="memberModify">
+	update travel.member
+	set memberPw = #{memberPw}, memberName = #{memberName}, memberEmail = #{memberEmail}, memberPhoneNumber = #{memberPhoneNumber}, joinDate = sysdate 
+	where memberId = #{memberId}
+</update>
+
+<delete id="memberRemove">
+	delete from travel.member where memberId=#{memberId}
+</delete>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring5.mapper.PostMapper">
+
+<select id="postList" resultType="org.spring5.domain.PostVO">
+	select * from travel.post 
+</select>
+
+<insert id="postInsert">
+	insert into travel.post (postBno, postTitle, postContent, memberId)
+	values (seq_postBno.nextval, #{postTitle}, #{postContent}, #{memberId})
+</insert>
+
+<update id="postModify">
+	update travel.post
+	set postTitle=#{postTitle}, postContent=#{postContent}, memberId=#{memberId}, postUpdateDate=sysdate
+	where postBno=#{postBno}
+</update>
+
+<select id="postRead" resultType="org.spring5.domain.PostVO">
+	select * from travel.post where postBno = #{postBno}
+</select>
+</mapper>
