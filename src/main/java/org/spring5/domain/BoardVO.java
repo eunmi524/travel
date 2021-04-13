@@ -1,6 +1,7 @@
 package org.spring5.domain;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.Data;
 
@@ -13,5 +14,7 @@ public class BoardVO {
 	private String memberId;
 	private Timestamp regDate;
 	private Timestamp updateDate;
+	
+	private List<BoardAttachVO> attachList;
 
 }

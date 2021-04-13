@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.spring5.mapper.BoardAttachMapper"> <!-- 패키지명이 포함된 인터페이스 이름을 설정합니다. -->
+
+	<insert id="insert">
+		INSERT INTO travel.boardAttach
+		VALUES (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno} )
+	</insert>
+
+	<delete id = "delete">
+		DELETE FROM travel.boardAttach
+		WHERE uuid = #{uuid}
+	</delete>
+	
+	<select id="findByBno" resultType="org.spring5.domain.BoardAttachVO">
+		SELECT * FROM travel.boardAttach
+		WHERE bno = #{bno}
+	</select>
+	
+	
+	<!-- 특정 게시물의 모든 첨부파일 삭제 -->
+	<delete id="deleteAll">
+		DELETE FROM travel.boardAttach
+		WHERE bno = #{bno}
+	</delete>
+	
+	<!-- 실행되는 시점 기준으로 하루전 날짜까지의 모든 첨부파일 정보를 조회 -->
+	<select id="selectAttachFilesBeforeOneDay" resultType="org.spring5.domain.BoardAttachVO">
+	<![CDATA[
+		SELECT *
+		FROM travel.boardAttach
+		WHERE uploadpath = TO_CHAR(sysdate -1 ,'yyyy\mm\dd')
+	]]>
+	</select>
+	
+</mapper>

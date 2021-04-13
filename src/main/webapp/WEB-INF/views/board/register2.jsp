@@ -2,20 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<% request.setCharacterEncoding("UTF-8"); %>   
+<%@ include file="../includes/header.jsp" %>
 
 <style>
 	.uploadResult { width:100%; background-color: gray;}
@@ -27,8 +17,7 @@
 	.bigPicture {position: relative; display:flex; justify-content: center; align-items: center;}
 	.bigPicture img { width: 600px; }
 </style>
-</head>
-<body>
+    
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -38,7 +27,7 @@
             </div>
             <!-- /.row -->
             
-			<div class="row">
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                     
@@ -56,10 +45,7 @@
                         			<textarea class="form-control" rows="3" name='content'></textarea> <!-- /textarea는 반드시 붙여써야함.(아래에 따로 띄어 쓰면 안됨) -->
                         		</div>
                         		
-                        		<div class="form-group">
-                        			<label>memberId</label> <input class="form-control" name='memberId' value='<c:out value="${sessionScope.memberId }"/>'>
-                        			
-                        		</div>
+
                         		<button type="submit" class="btn btn-default">Submit Button</button>
                         		<button type="reset" class="btn btn-default">Reset Button</button>
                         	</form>
@@ -71,8 +57,8 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-
-
+            
+            
 <!-- 첨부파일 -->
             <div class="row">
                 <div class="col-lg-12">
@@ -251,5 +237,3 @@ var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 	});
 </script>
 
-</body>
-</html>

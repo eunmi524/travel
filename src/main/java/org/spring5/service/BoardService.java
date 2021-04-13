@@ -2,6 +2,7 @@ package org.spring5.service;
 
 import java.util.List;
 
+import org.spring5.domain.BoardAttachVO;
 import org.spring5.domain.BoardPageDTO;
 import org.spring5.domain.BoardVO;
 import org.spring5.domain.Criteria;
@@ -25,5 +26,7 @@ public interface BoardService {
 	public int getTotal(Criteria cri);
 
 	BoardPageDTO getListPage(Criteria cri);
+	
+	public List<BoardAttachVO> getAttachList(Long bno);
 
 }

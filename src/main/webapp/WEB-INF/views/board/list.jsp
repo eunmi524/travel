@@ -10,6 +10,10 @@
 	<button type="button" class="btn btn-primary" onclick="location.href='register'">글쓰기</button>
 	<button type="button" class="btn btn-warning" onclick="location.href='/member/read?memberId=${member.memberId}'">내정보수정</button>
 
+<div class="container-fluid">
+  <div class="row" style="text-align: center;">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
         <table class="table table-striped" >
             <thead>
                 <tr>
@@ -150,7 +154,10 @@
 		<br><br><br><br>
 		</div>
 		<!-- end Pagination -->
-        
+
+</div>
+</div>
+</div>        
 	
 </body>
 

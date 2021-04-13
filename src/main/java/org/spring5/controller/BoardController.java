@@ -1,15 +1,21 @@
 package org.spring5.controller;
 
+import java.util.List;
+
+import org.spring5.domain.BoardAttachVO;
 import org.spring5.domain.BoardVO;
 import org.spring5.domain.Criteria;
 import org.spring5.domain.PageDTO;
 import org.spring5.service.BoardService;
 import org.spring5.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
@@ -24,7 +30,7 @@ public class BoardController {
 	@Autowired
 	private ReplyService replyService;
 	
-	@GetMapping("/index")
+	@GetMapping("/main")
 	public void test() {	
 	}
 	
@@ -98,5 +104,11 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 		
+	@GetMapping(value="/getAttachList", produces= {"application/json; charset=UTF-8"})
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
+		log.info("getAttachList" + bno);
+		return new ResponseEntity<>(boardService.getAttachList(bno), HttpStatus.OK);
+	}
 	
 }

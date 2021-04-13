@@ -62,12 +62,12 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 		
-<!-- 		<multipart-config>
+		<multipart-config>
 			<location>C:\\upload\\temp</location>
 			<max-file-size>20971520</max-file-size>20MB: 20*1024*1024
 			<max-request-size>41943040</max-request-size>40MB: 40*1024*1024
 			<file-size-threshold>20971520</file-size-threshold>20MB: 20*1024*1024
-		</multipart-config> -->
+		</multipart-config>
 	</servlet>
 		
 	<servlet-mapping>

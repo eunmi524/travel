@@ -17,7 +17,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<c:out value="${sessionScope.memberId }" />
 <div>
 	<button type="button" onclick="location.href='/member/login'">로그인</button>
 	<button type="button" onclick="location.href='/member/logout'">로그아웃</button>

@@ -106,6 +106,17 @@
 	values (seq_bno.nextval, #{title}, #{content}, #{memberId})
 </insert>
 
+<insert id="insertSelectKey">
+	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+	select seq_bno.nextval from dual
+	</selectKey>
+	
+	insert into travel.board
+	values (#{bno}, #{title}, #{content}, #{memberId}, default, default)
+	
+</insert>
+
+
 <select id="boardRead" resultType="org.spring5.domain.BoardVO">
 	select * from travel.board where bno = #{bno}
 </select>
