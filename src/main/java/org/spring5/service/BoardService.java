@@ -13,7 +13,7 @@ public interface BoardService {
 	
 	public BoardVO get(Long bno);
 	
-	public int modify(BoardVO boardVO);
+	public boolean modify(BoardVO boardVO);
 	
 	public boolean remove(Long bno);
 	

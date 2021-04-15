@@ -46,13 +46,37 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.boardRead(bno);
 	}
 
+//	@Override
+//	public int modify(BoardVO boardVO) {
+//		return boardMapper.boardUpdate(boardVO);
+//	}
+	
 	@Override
-	public int modify(BoardVO boardVO) {
-		return boardMapper.boardUpdate(boardVO);
+	public boolean modify(BoardVO boardVO) {
+		log.info("modify...." + boardVO);
+		//게시물의 기존 첨부파일 정보 삭제
+		boardAttachMapper.deleteAll(boardVO.getBno());
+		//게시물 정보 수정
+		boolean modifyResult = boardMapper.boardUpdate(boardVO) == 1;
+		if(modifyResult && boardVO.getAttachList() != null && boardVO.getAttachList().size() > 0) {
+			
+			boardVO.getAttachList().forEach(attach -> {
+				attach.setBno(boardVO.getBno());
+				boardAttachMapper.insert(attach);
+			});
+		}
+		return modifyResult;
 	}
 
+//	@Override
+//	public boolean remove(Long bno) {
+//		return boardMapper.boardDelete(bno) == 1 ;
+//	}
+	
 	@Override
 	public boolean remove(Long bno) {
+		log.info("remove....."+bno);
+		boardAttachMapper.deleteAll(bno);
 		return boardMapper.boardDelete(bno) == 1 ;
 	}
 

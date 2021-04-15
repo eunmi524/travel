@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<%@include file="../includes/header.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -190,7 +193,7 @@
 	
 	
 	
-<script type="text/javascript" src="/resources/js/reply.js"></script>
+
 <script type="text/javascript">	
 	
 //첨부파일 li 클릭 이벤트	
